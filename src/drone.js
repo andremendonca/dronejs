@@ -1,3 +1,12 @@
+/*!
+ * Drone MVCI Framework for Javascript
+ * https://github.com/andremendonca/dronejs
+ *
+ * Depends on jQuery
+ *
+ * Version 0.0.1-alpha
+ */
+
 var Drone = {};
 
 Drone.View = Drone.Controller = function (classObject) {
