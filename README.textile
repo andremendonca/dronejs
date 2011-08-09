@@ -1,0 +1,12 @@
+h2. Drone JS
+
+h3. JavaScript framework for a kind of MVC, for now we call it VCI
+
+1. Why VCI?
+Whe have Views, Controllers and Initializers (for now)
+
+2. How it works?
+We still working on it :)
+
+3. When it will be good for general use?
+We hope soon
