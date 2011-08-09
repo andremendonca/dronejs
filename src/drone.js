@@ -21,14 +21,20 @@ Drone.View = Drone.Controller = function (classObject) {
   };
 };
 
-Drone.Initializer = function (classObject) {
-  $().ready(function () {
+Drone.Initializer = function (classObject, autoexec) {
+  classObject.exec = function () {
     for (var key in classObject) {
-      if (classObject.hasOwnProperty(key)) {
+      if (classObject.hasOwnProperty(key) && key != "exec") {
         classObject[key]();
       }
     }
-  });
+  };
+
+  if (autoexec === true) {
+    $().ready(function () {
+      classObject.exec();
+    });
+  }
 
   return classObject;
 };
