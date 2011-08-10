@@ -13,11 +13,7 @@ Drone.View = Drone.Controller = function (classObject) {
   return function (attributes) {
       var F = function () {};
 
-      for (var key in attributes) {
-        if (attributes.hasOwnProperty(key)) {
-          classObject[key] = attributes[key];
-        }
-      }
+      $.extend(classObject, attributes);
 
       F.prototype = classObject;
 
