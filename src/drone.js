@@ -13,7 +13,13 @@ Drone.View = Drone.Controller = function (classObject) {
   return function (attributes) {
       var F = function () {};
 
-      $.extend(classObject, attributes);
+      $.extend(classObject, {
+        proxy: function (fn) {
+          return function () {
+            return fn.apply(instance, arguments);
+          };
+        }
+      }, attributes);
 
       F.prototype = classObject;
 

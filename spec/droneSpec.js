@@ -39,6 +39,22 @@ describe("Drone", function () {
             viewInstance = MyView({myAttr: "myAttr"});
         expect(viewInstance.myAttr).toEqual("myAttr");
       });
+
+      context("Include Drone methods", function () {
+        context("proxy method", function () {
+          it("should include as an instance method", function () {
+            var viewInstance = Drone.Controller({})();
+            expect(viewInstance.proxy).toBeDefined();
+          });
+
+          it("should change the 'this' attribure value to instance", function () {
+            var myEventHandler = function () { return this; },
+                viewInstance = Drone.Controller({})();
+
+            expect(viewInstance.proxy(myEventHandler)()).toEqual(viewInstance);
+          });
+        });
+      });
     });
   });
 
