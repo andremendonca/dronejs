@@ -36,8 +36,11 @@ describe("Drone", function () {
       it("should add attributes to my class when passed as params", function () {
         var MyClass = mock(),
             MyView = Drone.View(MyClass);
-            viewInstance = MyView({myAttr: "myAttr"});
+            viewInstance = MyView({myAttr: "myAttr"}),
+            viewInstance2 = MyView({myAttr: "myAttr2"});
+
         expect(viewInstance.myAttr).toEqual("myAttr");
+        expect(viewInstance2.myAttr).toEqual("myAttr2");
       });
 
       context("Include Drone methods", function () {
