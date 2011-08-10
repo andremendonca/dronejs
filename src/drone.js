@@ -7,19 +7,25 @@
  * Version 0.0.1-alpha
  */
 
-var Drone = {};
+var Drone = {
+  methods: function (classInstance) {
+    return {
+      proxy: function (fn) {
+        return function () {
+          return fn.apply(classInstance, arguments);
+        };
+      }
+    };
+  }
+};
 
 Drone.View = Drone.Controller = function (classObject) {
   return function (attributes) {
-      var F = function () {};
+      var F = function () {
+        $.extend(this, Drone.methods(this));
+      };
 
-      var newClassObject = $.extend(true, {
-        proxy: function (fn) {
-          return function () {
-            return fn.apply(instance, arguments);
-          };
-        }
-      }, classObject, attributes);
+      var newClassObject = $.extend(true, {}, classObject, attributes);
 
       F.prototype = newClassObject;
 
