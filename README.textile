@@ -3,14 +3,18 @@ h1. Drone JS
 h2. JavaScript framework for a kind of MVC, for now we call it VCI
 
 h3. Why VCI?
+
 Whe have Views, Controllers and Initializers (for now)
 
 h3. How it works?
+
 We still working on it :)
 
 h3. When it will be good for general use?
+
 We hope soon
 
 h3. Why drone?
+
 It is the Zerg worker in Starcraft world.
 !http://images.wikia.com/starcraft/images/b/b4/Drone_SC2_Rend1.jpg!
