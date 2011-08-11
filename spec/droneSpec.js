@@ -93,6 +93,16 @@ describe("Drone", function () {
       });
 
       context("Controllers", function () {
+        it("should call custom init when instanciate a controller", function () {
+          var teste = mock('init');
+              spyTeste = spyOn(teste, 'init'),
+              contInstance = Drone.Controller({
+                init: teste.init
+              })();
+
+          expect(spyTeste).toHaveBeenCalled();
+        });
+
         context("dynamic bind event handlers", function () {
           it("should dynamicaly bind event handlers to the view on init", function () {
             var view = mock("bind"),

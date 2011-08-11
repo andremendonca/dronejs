@@ -77,8 +77,13 @@ Drone.View = function (classObject) {
 Drone.Controller = function (classObject) {
   var handlers = classObject.eventHandlers || [];
 
+  var customInit = classObject.init;
   classObject.init = function () {
     Drone.helpers.controllers.bindEventHandlers.call(this, handlers);
+
+    if (customInit) {
+      customInit.call(this);
+    }
   };
 
   delete classObject.eventHandlers;
