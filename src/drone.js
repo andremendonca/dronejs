@@ -40,6 +40,24 @@ Drone.Base = function (classObject) {
 };
 
 Drone.View = function (classObject) {
+  var events = classObject.events;
+  var binds = {};
+
+  for (var i in events) {
+    if (events.hasOwnProperty(i)) {
+      for (var j in events[i]) {
+        if (events[i].hasOwnProperty(j)) {
+          binds[events[i][j]] = function (handler) {
+            $(i)[j](handler);
+          }
+        }
+      }
+    }
+  }
+
+  delete classObject.events;
+  $.extend(classObject, binds);
+
   return Drone.Base(classObject);
 };
 
