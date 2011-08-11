@@ -65,7 +65,7 @@ Drone.Base = function (classObject) {
 };
 
 Drone.View = function (classObject) {
-  var events = classObject.events;
+  var events = classObject.events || [];
   var binds = Drone.helpers.views.createEventsBinds(events);
 
   $.extend(classObject, binds);
@@ -75,7 +75,7 @@ Drone.View = function (classObject) {
 };
 
 Drone.Controller = function (classObject) {
-  var handlers = classObject.eventHandlers;
+  var handlers = classObject.eventHandlers || [];
 
   classObject.init = function () {
     Drone.helpers.controllers.bindEventHandlers.call(this, handlers);
