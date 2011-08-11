@@ -4,7 +4,7 @@
  *
  * Depends on jQuery
  *
- * Version 0.0.2-alpha
+ * Version 0.0.3-alpha
  */
 
 var Drone = {
