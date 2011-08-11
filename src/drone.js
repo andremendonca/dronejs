@@ -16,6 +16,24 @@ var Drone = {
         };
       }
     };
+  },
+
+  helpers: {
+    views: {
+      createEventsBinds: function (events) {
+        var binds = {};
+
+        $.each(events, function (i, b) {
+          $.each(events[i], function(j) {
+            binds[events[i][j]] = function (handler) {
+              $(i)[j](handler);
+            };
+          });
+        });
+
+        return binds;
+      }
+    }
   }
 };
 
@@ -41,19 +59,7 @@ Drone.Base = function (classObject) {
 
 Drone.View = function (classObject) {
   var events = classObject.events;
-  var binds = {};
-
-  for (var i in events) {
-    if (events.hasOwnProperty(i)) {
-      for (var j in events[i]) {
-        if (events[i].hasOwnProperty(j)) {
-          binds[events[i][j]] = function (handler) {
-            $(i)[j](handler);
-          }
-        }
-      }
-    }
-  }
+  var binds = Drone.helpers.views.createEventsBinds(events);
 
   delete classObject.events;
   $.extend(classObject, binds);
