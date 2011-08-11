@@ -91,6 +91,24 @@ describe("Drone", function () {
           });
         });
       });
+
+      context("Controllers", function () {
+        context("dynamic bind event handlers", function () {
+          it("should dynamicaly bind event handlers to the view on init", function () {
+            var view = mock("bind"),
+                spyView = spyOn(view, "bind");
+
+            var contInstance = Drone.Controller({
+              eventHandlers: ["bind"],
+
+              bindHandler: function () {}
+            })({view: view});
+
+            expect(spyView).toHaveBeenCalledWith(contInstance.bindHandler);
+          });
+          
+        });
+      });
     });
   });
 

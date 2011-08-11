@@ -33,6 +33,13 @@ var Drone = {
 
         return binds;
       }
+    },
+    controllers: {
+      bindEventHandlers: function(handlers){
+        $.each(handlers, this.proxy(function (i, handler) {
+          this.view[handler](this[handler + "Handler"]);
+        }));
+      }, 
     }
   }
 };
@@ -61,13 +68,20 @@ Drone.View = function (classObject) {
   var events = classObject.events;
   var binds = Drone.helpers.views.createEventsBinds(events);
 
-  delete classObject.events;
   $.extend(classObject, binds);
 
+  delete classObject.events;
   return Drone.Base(classObject);
 };
 
 Drone.Controller = function (classObject) {
+  var handlers = classObject.eventHandlers;
+
+  classObject.init = function () {
+    Drone.helpers.controllers.bindEventHandlers.call(this, handlers);
+  };
+
+  delete classObject.eventHandlers;
   return Drone.Base(classObject);
 }
 
