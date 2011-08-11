@@ -19,7 +19,7 @@ var Drone = {
   }
 };
 
-Drone.View = Drone.Controller = function (classObject) {
+Drone.Base = function (classObject) {
   return function (attributes) {
       var F = function () {
         $.extend(this, Drone.methods(this));
@@ -38,6 +38,14 @@ Drone.View = Drone.Controller = function (classObject) {
       return instance;
   };
 };
+
+Drone.View = function (classObject) {
+  return Drone.Base(classObject);
+};
+
+Drone.Controller = function (classObject) {
+  return Drone.Base(classObject);
+}
 
 Drone.Initializer = function (classObject, autoexec) {
   classObject.exec = function () {

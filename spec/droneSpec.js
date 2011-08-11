@@ -1,60 +1,60 @@
 describe("Drone", function () {
   describe("Creating the Controller's/View's constructor", function () {
     it("should return the constructor", function () {
-      expect(typeof Drone.View({})).toEqual("function");
+      expect(typeof Drone.Base({})).toEqual("function");
     });
 
     context("executing the constructor", function () {
       it("should create an instance of my class constroller/view", function () {
-        var MyView = Drone.View({myAttribute: "view"}),
-            viewInstance = MyView();
+        var MyBase = Drone.Base({myAttribute: "base"}),
+            baseInstance = MyBase();
 
-        expect(viewInstance.myAttribute).toEqual("view");
+        expect(baseInstance.myAttribute).toEqual("base");
       });
 
       it("should create diffenrent instances of my class", function () {
-        var MyView = Drone.View({myAttribute: "view"}),
-            viewInstance = MyView(),
-            viewInstance2 = MyView();
+        var MyBase = Drone.Base({myAttribute: "base"}),
+            baseInstance = MyBase(),
+            baseInstance2 = MyBase();
 
-        viewInstance2.myAttribute = "view2";
+        baseInstance2.myAttribute = "base2";
 
-        expect(viewInstance.myAttribute).toEqual("view");
-        expect(viewInstance2.myAttribute).toEqual("view2");
+        expect(baseInstance.myAttribute).toEqual("base");
+        expect(baseInstance2.myAttribute).toEqual("base2");
       });
 
       it("should execute the init method of my class", function () {
         var MyClass = mock('init'),
             initSpy = spyOn(MyClass, 'init'),
-            MyView = Drone.View(MyClass);
+            MyBase = Drone.Base(MyClass);
 
-        MyView();
+        MyBase();
 
         expect(initSpy).toHaveBeenCalled();
       });
 
       it("should add attributes to my class when passed as params", function () {
         var MyClass = mock(),
-            MyView = Drone.View(MyClass);
-            viewInstance = MyView({myAttr: "myAttr"}),
-            viewInstance2 = MyView({myAttr: "myAttr2"});
+            MyBase = Drone.Base(MyClass);
+            baseInstance = MyBase({myAttr: "myAttr"}),
+            baseInstance2 = MyBase({myAttr: "myAttr2"});
 
-        expect(viewInstance.myAttr).toEqual("myAttr");
-        expect(viewInstance2.myAttr).toEqual("myAttr2");
+        expect(baseInstance.myAttr).toEqual("myAttr");
+        expect(baseInstance2.myAttr).toEqual("myAttr2");
       });
 
       context("Include Drone methods", function () {
         context("proxy method", function () {
           it("should include as an instance method", function () {
-            var viewInstance = Drone.Controller({})();
-            expect(viewInstance.proxy).toBeDefined();
+            var baseInstance = Drone.Base({})();
+            expect(baseInstance.proxy).toBeDefined();
           });
 
           it("should change the 'this' attribure value to instance", function () {
             var myEventHandler = function () { return this; },
-                viewInstance = Drone.Controller({})();
+                baseInstance = Drone.Base({})();
 
-            expect(viewInstance.proxy(myEventHandler)()).toEqual(viewInstance);
+            expect(baseInstance.proxy(myEventHandler)()).toEqual(baseInstance);
           });
         });
       });
