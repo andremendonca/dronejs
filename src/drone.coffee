@@ -55,8 +55,9 @@ Drone.Controller = (classObject) ->
 
 Drone.Initializer = (classObject, autoexec) ->
   classObject.exec = ->
-    for key in classObject
-      key() if key?
+    for key, value of classObject
+      do ->
+        value() if value? and key isnt "exec"
 
   if autoexec is true
     $ -> classObject.exec()
