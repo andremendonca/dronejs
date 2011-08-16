@@ -23,6 +23,16 @@ describe("Drone", function () {
         expect(baseInstance2.myAttribute).toEqual("base2");
       });
 
+      it("should clone deep objects in my class", function () {
+        var MyObject = {attr: "base"},
+            MyBase = Drone.Base({myObj: MyObject}),
+            baseInstance = MyBase();
+
+        MyObject.attr = "new base";
+
+        expect(baseInstance.myObj.attr).toEqual("base");
+      });
+
       it("should execute the init method of my class", function () {
         var MyClass = mock('init'),
             initSpy = spyOn(MyClass, 'init'),
@@ -41,6 +51,16 @@ describe("Drone", function () {
 
         expect(baseInstance.myAttr).toEqual("myAttr");
         expect(baseInstance2.myAttr).toEqual("myAttr2");
+      });
+
+      it("should not clone deep objects passed through params to my class", function () {
+        var MyObject = {attr: "base"},
+            MyBase = Drone.Base(),
+            baseInstance = MyBase({myObj: MyObject});
+
+        MyObject.attr = "new base";
+
+        expect(baseInstance.myObj.attr).toEqual("new base");
       });
 
       context("Include Drone methods", function () {
