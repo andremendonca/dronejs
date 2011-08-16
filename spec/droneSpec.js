@@ -104,17 +104,41 @@ describe("Drone", function () {
         });
 
         context("dynamic bind event handlers", function () {
-          it("should dynamicaly bind event handlers to the view on init", function () {
-            var view = mock("bind"),
-                spyView = spyOn(view, "bind");
+          context("if it doesn't have custom views", function () {
+            it("should dynamicaly bind event handlers to the view on init", function () {
+              var view = mock("bind"),
+                  spyView = spyOn(view, "bind");
 
-            var contInstance = Drone.Controller({
-              eventHandlers: ["bind"],
+              var contInstance = Drone.Controller({
+                eventHandlers: ["bind"],
 
-              bindHandler: function () {}
-            })({view: view});
+                bindHandler: function () {}
+              })({view: view});
 
-            expect(spyView).toHaveBeenCalledWith(contInstance.bindHandler);
+              expect(spyView).toHaveBeenCalledWith(contInstance.bindHandler);
+            });
+          });
+
+          context("if it has one or more custom views", function () {
+            it("should dynamicaly bind event handlers to the views on init", function () {
+              var view1 = mock("bind1"),
+                  spyView1 = spyOn(view1, "bind1"),
+                  view2 = mock("bind2"),
+                  spyView2 = spyOn(view2, "bind2");
+
+              var contInstance = Drone.Controller({
+                eventHandlers: {
+                  view1: ['bind1'],
+                  view2: ['bind2']
+                },
+
+                bind1Handler: function () {},
+                bind2Handler: function () {}
+              })({view1: view1, view2: view2});
+
+              expect(spyView1).toHaveBeenCalledWith(contInstance.bind1Handler);
+              expect(spyView2).toHaveBeenCalledWith(contInstance.bind2Handler);
+            });
           });
           
         });
