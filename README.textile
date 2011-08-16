@@ -18,3 +18,43 @@ h3. Why drone?
 
 It is the Zerg worker in Starcraft world.
 !http://images.wikia.com/starcraft/images/b/b4/Drone_SC2_Rend1.jpg!
+
+h2. Documentation
+
+h3. Views
+
+h4. Dynamically create method to bind html events
+
+    var MyView = Drone.View({
+      events: {
+        "input.button": {"click": "bindCheckbox"}
+      }
+    });
+
+  whould generate in the instance:
+
+    *bindCheckbox*: function (handler) {
+      $("*input.button*").bind("*click*", handler);
+    }
+
+h3. Controllers
+
+h4. Dynamically bind handlers to views when instanciate a controller
+
+    var MyController = Drone.Controller({
+      eventHandlers: ["*bind*"],
+
+      *bind*Handler: function () {}
+    });
+
+  It the example above, when inicialize, the Drone will call a "*bind*" method in the default view passing "*bindHandler*" as the handler of the event. Below you can see an example with custom views.
+
+    var MyController = Drone.Controller({
+      eventHandlers: {
+        view: ["*bind*"],
+        otherView: ["*otherBind*"]
+      },
+
+      *bind*Handler: function () {},
+      *otherBind*Handler: function () {}
+    });
