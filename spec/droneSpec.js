@@ -108,6 +108,7 @@ describe("Drone", function () {
             myElement.trigger('click');
 
             expect(handlerSpy).toHaveBeenCalled();
+            myElement.remove();
           });
         });
       });
