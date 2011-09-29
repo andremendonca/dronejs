@@ -20,6 +20,7 @@ describe("Drone.Controller", function () {
                   };
 
               var contInstance = Drone.Controller({
+                dependencies: ["view"],
                 eventHandlers: ["bind"],
 
                 bindHandler: function () {}
@@ -37,6 +38,7 @@ describe("Drone.Controller", function () {
 
               var handlerInstance;
               var contInstance = Drone.Controller({
+                dependencies: ["view"],
                 eventHandlers: ["bind"],
 
                 bindHandler: function () { handlerInstance = this; }
@@ -64,6 +66,7 @@ describe("Drone.Controller", function () {
                   };
 
               var contInstance = Drone.Controller({
+                dependencies: ["view1", "view2"],
                 eventHandlers: {
                   view1: ['bind1'],
                   view2: ['bind2']
@@ -92,6 +95,7 @@ describe("Drone.Controller", function () {
 
               var handlerInstance1, handlerInstance2;
               var contInstance = Drone.Controller({
+                dependencies: ["view1", "view2"],
                 eventHandlers: {
                   view1: ['bind1'],
                   view2: ['bind2']

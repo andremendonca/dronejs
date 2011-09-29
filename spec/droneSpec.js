@@ -43,24 +43,45 @@ describe("Drone", function () {
         expect(initSpy).toHaveBeenCalled();
       });
 
-      it("should add attributes to my class when passed as params", function () {
-        var MyClass = mock(),
-            MyBase = Drone.Base(MyClass);
-            baseInstance = MyBase({myAttr: "myAttr"}),
-            baseInstance2 = MyBase({myAttr: "myAttr2"});
+      context("Constructor attributtes", function () {
+        context("when dependencies are explicit", function () {
+          it("should add attributes to my class", function () {
+            var MyClass = {
+                  dependencies: ['myAttr']
+                },
+                MyBase = Drone.Base(MyClass);
+                baseInstance = MyBase({myAttr: "myAttr"}),
+                baseInstance2 = MyBase({myAttr: "myAttr2"});
 
-        expect(baseInstance.myAttr).toEqual("myAttr");
-        expect(baseInstance2.myAttr).toEqual("myAttr2");
-      });
+            expect(baseInstance.myAttr).toEqual("myAttr");
+            expect(baseInstance2.myAttr).toEqual("myAttr2");
+          });
 
-      it("should not clone deep objects passed through params to my class", function () {
-        var MyObject = {attr: "base"},
-            MyBase = Drone.Base(),
-            baseInstance = MyBase({myObj: MyObject});
+          it("should not clone deep objects", function () {
+            var MyObject = {attr: "base"},
+                MyBase = Drone.Base({
+                  dependencies: ['myObj']
+                }),
+                baseInstance = MyBase({myObj: MyObject});
 
-        MyObject.attr = "new base";
+            MyObject.attr = "new base";
 
-        expect(baseInstance.myObj.attr).toEqual("new base");
+            expect(baseInstance.myObj.attr).toEqual("new base");
+          });
+
+        });
+
+        context("when dependencies aren't explicit", function () {
+          it("should do nothing", function () {
+            var MyClass = mock(),
+                MyBase = Drone.Base(MyClass);
+                baseInstance = MyBase({myAttr: "myAttr"}),
+                baseInstance2 = MyBase({myAttr: "myAttr2"});
+
+            expect(baseInstance.myAttr).toBeUndefined();
+            expect(baseInstance2.myAttr).toBeUndefined();
+          });
+        });
       });
 
       context("Include Drone instance methods", function () {
