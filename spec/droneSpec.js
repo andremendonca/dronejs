@@ -63,8 +63,8 @@ describe("Drone", function () {
         expect(baseInstance.myObj.attr).toEqual("new base");
       });
 
-      context("Include Drone methods", function () {
-        context("proxy method", function () {
+      context("Include Drone instance methods", function () {
+        context("#proxy", function () {
           it("should include as an instance method", function () {
             var baseInstance = Drone.Base({})();
             expect(baseInstance.proxy).toBeDefined();

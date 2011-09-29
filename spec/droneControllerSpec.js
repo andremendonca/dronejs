@@ -28,7 +28,7 @@ describe("Drone.Controller", function () {
               expect(hadRecievedHandler).toBeTruthy();
             });
 
-            it("should maintaing the this value from the handler as my controller instance", function () {
+            it("should maintaing the 'this' value from the handler as my controller instance", function () {
               var view = {
                 bind: function (handler) {
                   $(view).bind('test_event', handler);
@@ -77,7 +77,7 @@ describe("Drone.Controller", function () {
               expect(hadRecievedHandler2).toBeTruthy();
             });
 
-            it("should maintaing the this value from the handler as my controller instance", function () {
+            it("should maintaing the 'this' value from the handler as my controller instance", function () {
               var view1 = {
                 bind1: function (handler) {
                   $(view1).bind('test_event', handler);
