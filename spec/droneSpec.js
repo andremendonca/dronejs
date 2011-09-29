@@ -69,6 +69,22 @@ describe("Drone", function () {
             expect(baseInstance.myObj.attr).toEqual("new base");
           });
 
+          context("when the class is inicialized without a dependence", function () {
+            it("should throw an error", function () {
+              var MyClass = {
+                    dependencies: ['myAttr']
+                  },
+                  MyBase = function () {
+                    Drone.Base(MyClass)();
+                  };
+                 
+
+              expect(MyBase).toThrow({
+                name: "Attribute not found",
+                message: "Required attribute 'myAttr' not found"
+              });
+            });
+          });
         });
 
         context("when dependencies aren't explicit", function () {
@@ -91,7 +107,7 @@ describe("Drone", function () {
             expect(baseInstance.proxy).toBeDefined();
           });
 
-          it("should change the 'this' attribure value to instance", function () {
+          it("should change the 'this' attribute value to instance", function () {
             var myEventHandler = function () { return this; },
                 baseInstance = Drone.Base({})();
 
