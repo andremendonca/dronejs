@@ -26,8 +26,8 @@ Documentation
 -------------
 ### Getting started
 Before start using this framework, we recommend to read the concepts presented in the article below. It talks about an archtecture pattern to use with MVC or MVP (Model/View/Presenter).
-[Article -> Passive view](http://martinfowler.com/eaaDev/PassiveScreen.html)
 
+[Article -> Passive view](http://martinfowler.com/eaaDev/PassiveScreen.html)
 
 In other words, a good usage of this archtecture is to make the View methods as small as you can, with little or no logic. Put that logic in the Controller and leave the DOM interaction JUST to the View.
 
@@ -68,6 +68,7 @@ Automatically pass a View to the Controller
     var controller = MyControllerClass({view: myViewInstance});
     controller.view.foo(); //will execute some view method
 
+* * *
 
 ### Base Class
 This is a generic class that all Drone `views` and `controllers` (for now) inherit, so, every feature here will be present in both. Though, we recommend to use just View and Controller classes, it's also possible to use this class alone.
@@ -123,8 +124,12 @@ Dependencies is an array of attribute names. The specified attributes MUST be pa
     var instance = MyBase({foo: "bar"});
     instance.getDependency(); //will return 'bar'
 
+* * *
+
 ### Models
 We're still working on it! :)
+
+* * *
 
 ### Views
 
@@ -141,6 +146,8 @@ would generate in the instance something as shown below:
     bindCheckbox: function (handler) {
       $("input.button").bind("click", handler);
     }
+
+* * *
 
 ### Controllers
 
@@ -163,6 +170,8 @@ It the example above, when inicialize, the Drone will call a `bind` method in th
       bindHandler: function () {},
       otherBindHandler: function () {}
     });
+
+* * *
 
 ### Inicializers
 
