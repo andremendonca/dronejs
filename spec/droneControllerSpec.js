@@ -1,12 +1,12 @@
 describe("Drone.Controller", function () {
-        it("should call custom init when instanciate a controller", function () {
+        it("should call custom init passing the attributes when instanciate a controller", function () {
           var teste = mock('init');
               spyTeste = spyOn(teste, 'init'),
               contInstance = Drone.Controller({
                 init: teste.init
-              })();
+              })({foo: "bar"});
 
-          expect(spyTeste).toHaveBeenCalled();
+          expect(spyTeste).toHaveBeenCalledWith({foo: "bar"});
         });
 
         context("dynamic bind event handlers", function () {

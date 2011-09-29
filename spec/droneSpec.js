@@ -33,14 +33,14 @@ describe("Drone", function () {
         expect(baseInstance.myObj.attr).toEqual("base");
       });
 
-      it("should execute the init method of my class", function () {
+      it("should execute the init method of my class passing the attributtes", function () {
         var MyClass = mock('init'),
             initSpy = spyOn(MyClass, 'init'),
             MyBase = Drone.Base(MyClass);
 
-        MyBase();
+        MyBase({foo: "bar"});
 
-        expect(initSpy).toHaveBeenCalled();
+        expect(initSpy).toHaveBeenCalledWith({foo: "bar"});
       });
 
       context("Constructor attributtes", function () {
