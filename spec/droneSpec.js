@@ -79,10 +79,7 @@ describe("Drone", function () {
                   };
                  
 
-              expect(MyBase).toThrow({
-                name: "Attribute not found",
-                message: "Required attribute 'myAttr' not found"
-              });
+              expect(MyBase).toThrow("Drone Error: Required attribute 'myAttr' not found");
             });
           });
         });
