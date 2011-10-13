@@ -31,6 +31,10 @@ describe("Drone", function () {
         MyObject.attr = "new base";
 
         expect(baseInstance.myObj.attr).toEqual("base");
+
+        var baseInstance2 = MyBase();
+        baseInstance2.myObj.attr = "new base";
+        expect(baseInstance.myObj.attr).toEqual("base");
       });
 
       it("should execute the init method of my class passing the attributtes", function () {
