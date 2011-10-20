@@ -45,6 +45,14 @@ describe("Drone.Initializer", function () {
         myInitializer.exec();
         expect(spyMyMethod).toHaveBeenCalled();
       });
+
+      it("should call all methods but not try to execute attributes", function () {
+        var myInitializer = Drone.Initializer({attr: ""});
+      
+        expect(function () {
+          myInitializer.exec();
+        }).not.toThrow("Property 'attr' of object #<Object> is not a function");
+      });
     });
   });
 });
