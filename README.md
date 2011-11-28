@@ -34,39 +34,49 @@ In other words, a good usage of this archtecture is to make the View methods as 
 #### Views
 Creating a View
 
-    var MyViewClass = Drone.View({
-      foo: function () {
-        return 'bar';
-      }
-    });
+```javascript
+var MyViewClass = Drone.View({
+  foo: function () {
+    return 'bar';
+  }
+});
+```
 
 Instanciating the View
 
-    var myViewInstance = MyViewClass();
-    myViewInstance.foo(); //will return 'bar'
+```javascript
+var myViewInstance = MyViewClass();
+myViewInstance.foo(); //will return 'bar'
+```
 
 #### Controllers
 Creating a Controller
 
-    var MyControllerClass = Drone.Controller({
-      foo: function () {
-        return 'bar';
-      }
-    });
+```javascript
+var MyControllerClass = Drone.Controller({
+  foo: function () {
+    return 'bar';
+  }
+});
+```
 
 Instanciating the Controller
 
-    var myControllerInstance = MyControllerClass();
-    myControllerInstance.foo(); //will return 'bar'
+```javascript
+var myControllerInstance = MyControllerClass();
+myControllerInstance.foo(); //will return 'bar'
+```
 
 Automatically pass a View to the Controller
 
-    var MyControllerClass = Drone.Controller({
-      dependencies: ["view"]
-    });
+```javascript
+var MyControllerClass = Drone.Controller({
+  dependencies: ["view"]
+});
 
-    var controller = MyControllerClass({view: myViewInstance});
-    controller.view.foo(); //will execute some view method
+var controller = MyControllerClass({view: myViewInstance});
+controller.view.foo(); //will execute some view method
+```
 
 * * *
 
@@ -76,53 +86,61 @@ This is a generic class that all Drone `views` and `controllers` (for now) inher
 #### Constructor
 Well, all Base class can have a `init` method as a constructor. When you instanciate your class it will be called.
 
-    var MyBase = Drone.Base({
-      init: function () {
-        alert('this is my constructor');
-      }
-    });
+```javascript
+var MyBase = Drone.Base({
+  init: function () {
+    alert('this is my constructor');
+  }
+});
 
-    MyBase(); //alert 'this is my constructor'
+MyBase(); //alert 'this is my constructor'
+```
 
 It's possible to pass attributtes to the constructor, but it need to be a literal object.
 
-    var MyBase = Drone.Base({
-      init: function (attributes) {
-        alert(attributes.message);
-      }
-    });
+```javascript
+var MyBase = Drone.Base({
+  init: function (attributes) {
+    alert(attributes.message);
+  }
+});
 
-    MyBase({message: "this is my attribute"}); //alert 'this is my attribute'
+MyBase({message: "this is my attribute"}); //alert 'this is my attribute'
+```
 
 #### proxy
 Proxy is a method to support the work with closures or things like jquery events. These cases are normaly when, in javascript, the `this` value is lost, so it's possible to use the proxy method to force the value of `this` to be the current instance of a function.
 
-    var MyBase = Drone.Base({
-      foo: "bar"
-      useProxy: function () {
-        var closure = this.proxy(function () {
-          return this.foo;
-        });
-        
-        return closure();
-      }
+```javascript
+var MyBase = Drone.Base({
+  foo: "bar"
+  useProxy: function () {
+    var closure = this.proxy(function () {
+      return this.foo;
     });
 
-    var instance = MyBase();
-    instance.useProxy(); //will return 'bar'
+    return closure();
+  }
+});
+
+var instance = MyBase();
+instance.useProxy(); //will return 'bar'
+```
 
 #### dependencies
 Dependencies is an array of attribute names. The specified attributes MUST be passed through the constructor, and will automatically became an attribute of the instance.
 
-    var MyBase = Drone.Base({
-      dependencies: ["foo"]
-      getDependency: function () {
-        return this.foo;
-      }
-    });
+```javascript
+var MyBase = Drone.Base({
+  dependencies: ["foo"]
+  getDependency: function () {
+    return this.foo;
+  }
+});
 
-    var instance = MyBase({foo: "bar"});
-    instance.getDependency(); //will return 'bar'
+var instance = MyBase({foo: "bar"});
+instance.getDependency(); //will return 'bar'
+```
 
 * * *
 
@@ -135,17 +153,21 @@ We're still working on it! :)
 
 #### Dynamically create method to bind html events
 
-    var MyView = Drone.View({
-      events: {
-        "input.button": {"click": "bindCheckbox"}
-      }
-    });
+```javascript
+var MyView = Drone.View({
+  events: {
+    "input.button": {"click": "bindCheckbox"}
+  }
+});
+```
 
 would generate in the instance something as shown below:
 
-    bindCheckbox: function (handler) {
-      $("input.button").bind("click", handler);
-    }
+```javascript
+bindCheckbox: function (handler) {
+  $("input.button").bind("click", handler);
+}
+```
 
 * * *
 
@@ -153,14 +175,17 @@ would generate in the instance something as shown below:
 
 #### Dynamically bind handlers to views when instanciate a controller
 
-    var MyController = Drone.Controller({
-      eventHandlers: ["bind"],
+```javascript
+var MyController = Drone.Controller({
+  eventHandlers: ["bind"],
 
-      bindHandler: function () {}
-    });
+  bindHandler: function () {}
+});
+```
 
 It the example above, when inicialize, the Drone will call a `bind` method in the default view passing `bindHandler` as the handler of the event. Below you can see an example with custom views.
 
+```javascript
     var MyController = Drone.Controller({
       eventHandlers: {
         view: ["bind"],
@@ -170,6 +195,7 @@ It the example above, when inicialize, the Drone will call a `bind` method in th
       bindHandler: function () {},
       otherBindHandler: function () {}
     });
+```
 
 * * *
 
