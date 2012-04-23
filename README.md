@@ -1,12 +1,12 @@
 Drone JS
 ========
 
-JavaScript framework for a kind of MVC, for now we call it VCI
+Lightweight JavaScript framework for a kind of MVC, but we call it MVCI
 --------------------------------------------------------------
 
-### Why VCI?
+### Why MVCI?
 
-Whe have Views, Controllers and Initializers (for now)
+Whe have Models, Views, Controllers and Initializers.
 
 ### How it works?
 
@@ -30,6 +30,24 @@ Before start using this framework, we recommend to read the concepts presented i
 [Article -> Passive view](http://martinfowler.com/eaaDev/PassiveScreen.html)
 
 In other words, a good usage of this archtecture is to make the View methods as small as you can, with little or no logic. Put that logic in the Controller and leave the DOM interaction JUST to the View.
+
+#### Models
+Creating a Model
+
+```javascript
+var MyModelClass = Drone.Model({
+  bar: function () {
+    return 'foo';
+  }
+});
+```
+
+Instanciating the Model
+
+```javascript
+var myModelInstance = MyModelClass();
+myModelInstance.bar(); //will return 'foo'
+```
 
 #### Views
 Creating a View
@@ -67,15 +85,16 @@ var myControllerInstance = MyControllerClass();
 myControllerInstance.foo(); //will return 'bar'
 ```
 
-Automatically pass a View to the Controller
+Automatically pass a View and a Model to the Controller
 
 ```javascript
 var MyControllerClass = Drone.Controller({
-  dependencies: ["view"]
+  dependencies: ["view", "model"]
 });
 
-var controller = MyControllerClass({view: myViewInstance});
+var controller = MyControllerClass({view: myViewInstance, model: myModelInstance});
 controller.view.foo(); //will execute some view method
+controller.model.bar(); //will execute some model method
 ```
 
 * * *
@@ -145,7 +164,7 @@ instance.getDependency(); //will return 'bar'
 * * *
 
 ### Models
-We're still working on it! :)
+Whereas that we finally have a Model, we still are working on it indeed. Although it's just an alias for the `Base class`.
 
 * * *
 
@@ -199,6 +218,6 @@ It the example above, when inicialize, the Drone will call a `bind` method in th
 
 * * *
 
-### Inicializers
+### Initializers
 
 I need to put some documentation here.
