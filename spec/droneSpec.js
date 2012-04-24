@@ -81,7 +81,7 @@ describe("Drone", function () {
                   MyBase = function () {
                     Drone.Base(MyClass)();
                   };
-                 
+
 
               expect(MyBase).toThrow("Drone Error: Required attribute 'myAttr' not found");
             });
@@ -108,11 +108,23 @@ describe("Drone", function () {
             expect(baseInstance.proxy).toBeDefined();
           });
 
-          it("should change the 'this' attribute value to instance", function () {
-            var myEventHandler = function () { return this; },
-                baseInstance = Drone.Base({})();
+          context("when caller doesn't forces 'this' attribute value", function () {
+            it("should change to instance", function () {
+              var myEventHandler = function () { return this; },
+                  baseInstance = Drone.Base({})();
 
-            expect(baseInstance.proxy(myEventHandler)()).toEqual(baseInstance);
+              expect(baseInstance.proxy(myEventHandler)()).toEqual(baseInstance);
+            });
+          });
+
+          context("when caller forces 'this' attribute value", function () {
+            it("should change to forced value", function () {
+              var myEventHandler = function () { return this; },
+                  forcedValue = "this value",
+                  baseInstance = Drone.Base({})();
+
+              expect(baseInstance.proxy(myEventHandler, forcedValue)()).toEqual(forcedValue);
+            });
           });
         });
       });
