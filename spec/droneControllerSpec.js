@@ -1,4 +1,33 @@
 describe("Drone.Controller", function () {
+  context("if classObject is a function", function () {
+    it("should use the return as classObject", function () {
+      var contInstance = Drone.Controller(function () {
+            return {
+              attr: "myattr"
+            };
+          })();
+
+      expect(contInstance.attr).toBeDefined();
+    });
+
+    it("should have unique private attr/methods for each instance of a class", function () {
+      var cont = Drone.Controller(function () {
+            var attr = "initial";
+            return {
+              setAttr: function (value) { attr = value; },
+              getAttr: function () { return attr; }
+            };
+          }),
+          contInstance1 = cont(),
+          contInstance2 = cont();
+
+      contInstance1.setAttr("modified");
+
+      expect(contInstance1.getAttr()).toEqual("modified");
+      expect(contInstance2.getAttr()).toEqual("initial");
+    });
+  });
+
   it("should call custom init passing the attributes when instanciate a controller", function () {
     var teste = mock('init'),
         spyTeste = spyOn(teste, 'init'),
