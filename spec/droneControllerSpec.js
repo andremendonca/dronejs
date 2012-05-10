@@ -1,46 +1,5 @@
 describe("Drone.Controller", function () {
-  context("if classObject is a function", function () {
-    it("should use the return as classObject", function () {
-      var contInstance = Drone.Controller(function () {
-            return {
-              attr: "myattr"
-            };
-          })();
-
-      expect(contInstance.attr).toBeDefined();
-    });
-
-    it("should have unique private attr/methods for each instance of a class", function () {
-      var cont = Drone.Controller(function () {
-            var attr = "initial";
-            return {
-              setAttr: function (value) { attr = value; },
-              getAttr: function () { return attr; }
-            };
-          }),
-          contInstance1 = cont(),
-          contInstance2 = cont();
-
-      contInstance1.setAttr("modified");
-
-      expect(contInstance1.getAttr()).toEqual("modified");
-      expect(contInstance2.getAttr()).toEqual("initial");
-    });
-
-    it("should clone deep objects in my class", function () {
-      var MyObject = {attr: "view"},
-          MyView = Drone.View(function () { return {myObj: MyObject}}),
-          viewInstance = MyView();
-
-      MyObject.attr = "new view";
-
-      expect(viewInstance.myObj.attr).toEqual("view");
-
-      var viewInstance2 = MyView();
-      viewInstance2.myObj.attr = "new view";
-      expect(viewInstance.myObj.attr).toEqual("view");
-    });
-  });
+  describedClass("Drone.Controller").shouldBehavesLike("if classObject is a function");
 
   it("should call custom init passing the attributes when instanciate a controller", function () {
     var teste = mock('init'),
