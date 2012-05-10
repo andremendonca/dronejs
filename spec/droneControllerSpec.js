@@ -1,5 +1,7 @@
 describe("Drone.Controller", function () {
-  describedClass("Drone.Controller").shouldBehavesLike("if classObject is a function");
+  describedClass("Drone.Controller")
+    .shouldBehavesLike("if classObject is a function")
+    .shouldBehavesLike("when creating the constructor");
 
   it("should call custom init passing the attributes when instanciate a controller", function () {
     var teste = mock('init'),
