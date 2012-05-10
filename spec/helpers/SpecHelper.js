@@ -28,3 +28,17 @@ function context (description, specs) {
   describe(description, specs);
 }
 
+var NamespaceFactory = function (namespace) {
+  "use strict";
+  var namespaces = namespace.split("."),
+      size = namespaces.length,
+      parent = window, current;
+
+  for(var i = 0; i < size; i++) {
+    current = namespaces[i];
+    parent[current] = parent[current] || {};
+    parent = parent[current];
+  }
+
+  return parent;
+};
