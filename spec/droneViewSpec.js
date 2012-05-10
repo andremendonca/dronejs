@@ -26,6 +26,20 @@ describe("Drone.View", function () {
       expect(viewInstance1.getAttr()).toEqual("modified");
       expect(viewInstance2.getAttr()).toEqual("initial");
     });
+
+    it("should clone deep objects in my class", function () {
+      var MyObject = {attr: "view"},
+          MyView = Drone.View(function () { return {myObj: MyObject}}),
+          viewInstance = MyView();
+
+      MyObject.attr = "new view";
+
+      expect(viewInstance.myObj.attr).toEqual("view");
+
+      var viewInstance2 = MyView();
+      viewInstance2.myObj.attr = "new view";
+      expect(viewInstance.myObj.attr).toEqual("view");
+    });
   });
 
   context("dynamic events bind methods", function () {

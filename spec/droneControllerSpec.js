@@ -26,6 +26,20 @@ describe("Drone.Controller", function () {
       expect(contInstance1.getAttr()).toEqual("modified");
       expect(contInstance2.getAttr()).toEqual("initial");
     });
+
+    it("should clone deep objects in my class", function () {
+      var MyObject = {attr: "view"},
+          MyView = Drone.View(function () { return {myObj: MyObject}}),
+          viewInstance = MyView();
+
+      MyObject.attr = "new view";
+
+      expect(viewInstance.myObj.attr).toEqual("view");
+
+      var viewInstance2 = MyView();
+      viewInstance2.myObj.attr = "new view";
+      expect(viewInstance.myObj.attr).toEqual("view");
+    });
   });
 
   it("should call custom init passing the attributes when instanciate a controller", function () {

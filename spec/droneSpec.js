@@ -1,32 +1,4 @@
 describe("Drone", function () {
-  context("if classObject is a function", function () {
-    it("should use the return as classObject", function () {
-      var instance = Drone.Base(function () {
-            return {
-              attr: "myattr"
-            };
-          })();
-
-      expect(instance.attr).toBeDefined();
-    });
-
-    it("should have unique private attr/methods for each instance of a class", function () {
-      var base = Drone.Base(function () {
-            var attr = "initial";
-            return {
-              setAttr: function (value) { attr = value; },
-              getAttr: function () { return attr; }
-            };
-          }),
-          instance1 = base(),
-          instance2 = base();
-
-      instance1.setAttr("modified");
-
-      expect(instance1.getAttr()).toEqual("modified");
-      expect(instance2.getAttr()).toEqual("initial");
-    });
-  });
 
   describe("Creating the base constructor", function () {
     it("should return the constructor", function () {
@@ -155,6 +127,49 @@ describe("Drone", function () {
               expect(baseInstance.proxy(myEventHandler, forcedValue)()).toEqual(forcedValue);
             });
           });
+        });
+      });
+
+      context("if classObject is a function", function () {
+        it("should use the return as classObject", function () {
+          var instance = Drone.Base(function () {
+                return {
+                  attr: "myattr"
+                };
+              })();
+
+          expect(instance.attr).toBeDefined();
+        });
+
+        it("should have unique private attr/methods for each instance of a class", function () {
+          var base = Drone.Base(function () {
+                var attr = "initial";
+                return {
+                  setAttr: function (value) { attr = value; },
+                  getAttr: function () { return attr; }
+                };
+              }),
+              instance1 = base(),
+              instance2 = base();
+
+          instance1.setAttr("modified");
+
+          expect(instance1.getAttr()).toEqual("modified");
+          expect(instance2.getAttr()).toEqual("initial");
+        });
+
+        it("should clone deep objects in my class", function () {
+            var MyObject = {attr: "base"},
+                MyBase = Drone.Base(function () { return {myObj: MyObject}}),
+                baseInstance = MyBase();
+
+            MyObject.attr = "new base";
+
+            expect(baseInstance.myObj.attr).toEqual("base");
+
+            var baseInstance2 = MyBase();
+            baseInstance2.myObj.attr = "new base";
+            expect(baseInstance.myObj.attr).toEqual("base");
         });
       });
     });
