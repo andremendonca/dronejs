@@ -1,7 +1,6 @@
 describe("Drone.View", function () {
   describedClass("Drone.View")
-    .shouldBehavesLike("if classObject is a function")
-    .shouldBehavesLike("when creating the constructor");
+    .shouldBehavesLike("base");
 
   context("dynamic events bind methods", function () {
     it("should create", function () {
